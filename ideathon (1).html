@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kisan Setu | Farmer Procurement Portal</title>
+
+    <style>
+        /* =========================
+           BASIC RESET
+        ========================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f8f4;
+            color: #183323;
+        }
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================== */
+        .navbar {
+            width: 100%;
+            background: white;
+            border-bottom: 1px solid #dfe8e1;
+            padding: 16px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #145c31;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: #e5f3e8;
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .navbar-text {
+            color: #68736c;
+            font-size: 14px;
+        }
+
+        /* =========================
+           MAIN
+        ========================== */
+        .main {
+            width: 90%;
+            max-width: 1050px;
+            margin: 45px auto 60px;
+        }
+
+        /* =========================
+           HERO
+        ========================== */
+        .hero {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e6f4e9;
+            color: #176637;
+            border-radius: 30px;
+            padding: 8px 15px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            color: #173321;
+        }
+
+        .hero h1 span {
+            color: #1c7a40;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: auto;
+            color: #68736c;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           STEPS
+        ========================== */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .step {
+            border: 1px solid #dce6de;
+            background: white;
+            border-radius: 13px;
+            padding: 13px 10px;
+            text-align: center;
+            color: #6e7871;
+            font-size: 13px;
+        }
+
+        .step-button {
+            width: 100%;
+            cursor: pointer;
+            border: 1px solid #dce6de;
+        }
+
+        .step-button:hover {
+            border-color: #8fbea0;
+        }
+
+        .step.active {
+            background: #e8f6eb;
+            border-color: #a5cfaf;
+            color: #145b30;
+            font-weight: bold;
+        }
+
+        .step-number {
+            width: 28px;
+            height: 28px;
+            margin: 0 auto 7px;
+            border-radius: 50%;
+            background: #edf1ed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #657068;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .step.active .step-number {
+            background: #19703b;
+            color: white;
+        }
+
+        /* =========================
+           CARD
+        ========================== */
+        .card {
+            background: white;
+            border: 1px solid #dce6de;
+            border-radius: 20px;
+            box-shadow: 0 12px 35px rgba(25, 67, 40, 0.08);
+            overflow: hidden;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 25px 30px;
+            border-bottom: 1px solid #e1e9e2;
+        }
+
+        .card-icon {
+            width: 46px;
+            height: 46px;
+            background: #e7f5ea;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 23px;
+        }
+
+        .card-header h2 {
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+
+        .card-header p {
+            color: #738077;
+            font-size: 13px;
+        }
+
+        .form {
+            padding: 30px;
+        }
+
+        /* =========================
+           FORM SECTIONS
+        ========================== */
+        .section {
+            margin-bottom: 28px;
+        }
+
+        .section-title {
+            color: #145b30;
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .required {
+            color: #bb2924;
+        }
+
+        input,
+        select {
+            width: 100%;
+            height: 46px;
+            border: 1px solid #cad7cd;
+            border-radius: 9px;
+            padding: 0 13px;
+            background: #fcfdfc;
+            font-size: 14px;
+            color: #183323;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #3b9258;
+            box-shadow: 0 0 0 3px rgba(59, 146, 88, 0.10);
+        }
+
+        .help-text {
+            color: #7b857e;
+            font-size: 11px;
+            margin-top: 5px;
+        }
+
+        /* =========================
+           CONSENT
+        ========================== */
+        .consent {
+            margin-top: 20px;
+            background: #f3f7f3;
+            border: 1px solid #e0e8e1;
+            border-radius: 10px;
+            padding: 14px;
+            font-size: 12px;
+            color: #667068;
+            line-height: 1.5;
+        }
+
+        .consent label {
+            display: flex;
+            flex-direction: row;
+            gap: 9px;
+            align-items: flex-start;
+        }
+
+        .consent input {
+            width: auto;
+            height: auto;
+            margin-top: 3px;
+        }
+
+        /* =========================
+           FORM BUTTONS
+        ========================== */
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .clear-btn,
+        .register-btn {
+            border: none;
+            border-radius: 9px;
+            padding: 13px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .clear-btn {
+            background: #edf1ed;
+            color: #566159;
+        }
+
+        .register-btn {
+            background: #19703b;
+            color: white;
+            min-width: 175px;
+        }
+
+        .register-btn:hover {
+            background: #12572d;
+        }
+
+        /* =========================
+           SUCCESS MESSAGE
+        ========================== */
+        .success-message {
+            display: none;
+            margin: 0 30px 30px;
+            padding: 16px;
+            border-radius: 10px;
+            background: #e8f6eb;
+            border: 1px solid #b4d8bd;
+            color: #145c30;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* =========================
+           SLOT BOOKING
+        ========================== */
+        .booking-section {
+            display: none;
+        }
+
+        .booking-section.show {
+            display: block;
+        }
+
+        .booking-intro {
+            margin-bottom: 24px;
+        }
+
+        .booking-intro h2 {
+            color: #145b30;
+            font-size: 23px;
+            margin-bottom: 5px;
+        }
+
+        .booking-intro p {
+            color: #718078;
+            font-size: 13px;
+        }
+
+        .booking-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .slot-heading {
+            margin-top: 25px;
+            margin-bottom: 12px;
+            color: #145b30;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .slots {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .slot {
+            border: 1px solid #cedbd1;
+            background: #fbfdfb;
+            border-radius: 10px;
+            padding: 15px 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .slot:hover {
+            border-color: #6ba77b;
+            transform: translateY(-2px);
+        }
+
+        .slot.selected {
+            background: #e5f4e8;
+            border: 2px solid #19703b;
+        }
+
+        .slot.full {
+            background: #f3f3f3;
+            border-color: #dddddd;
+            color: #9a9a9a;
+            cursor: not-allowed;
+        }
+
+        .slot strong {
+            display: block;
+            color: #183323;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .slot.full strong {
+            color: #999;
+        }
+
+        .slot span {
+            color: #708078;
+            font-size: 11px;
+        }
+
+        .booking-actions {
+            margin-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .selected-slot {
+            color: #68736c;
+            font-size: 13px;
+        }
+
+        .selected-slot strong {
+            color: #145b30;
+        }
+
+        .confirm-slot-btn {
+            border: none;
+            border-radius: 9px;
+            padding: 13px 22px;
+            background: #19703b;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            min-width: 180px;
+        }
+
+        .confirm-slot-btn:hover {
+            background: #12572d;
+        }
+
+        .booking-success {
+            display: none;
+            margin-top: 20px;
+            padding: 16px;
+            background: #e8f6eb;
+            border: 1px solid #b4d8bd;
+            border-radius: 10px;
+            color: #145c30;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+        .footer {
+            text-align: center;
+            margin-top: 18px;
+            color: #89928c;
+            font-size: 12px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+        @media (max-width: 760px) {
+
+            .navbar {
+                padding: 14px 4%;
+            }
+
+            .navbar-text {
+                display: none;
+            }
+
+            .main {
+                width: 94%;
+                margin-top: 30px;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            .steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-grid,
+            .booking-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .slots {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .card-header,
+            .form {
+                padding: 22px;
+            }
+
+            .success-message {
+                margin-left: 22px;
+                margin-right: 22px;
+            }
+
+            .actions,
+            .booking-actions {
+                flex-direction: column-reverse;
+                align-items: stretch;
+            }
+
+            .clear-btn,
+            .register-btn,
+            .confirm-slot-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+    <header class="navbar">
+
+        <div class="logo">
+            <div class="logo-icon">🌾</div>
+            KISAN SETU
+        </div>
+
+        <div class="navbar-text">
+            Smart Farmer Procurement Portal
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+    <main class="main">
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <div class="badge">
+                🌱 DIGITAL PROCUREMENT
+            </div>
+
+            <h1>
+                Register once.
+                <span>Procure smarter.</span>
+            </h1>
+
+            <p>
+                Complete your farmer registration to access procurement
+                centres, book slots and reduce waiting time.
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+             PROGRESS STEPS
+        ========================== -->
+        <section class="steps">
+
+            <button
+                class="step step-button active"
+                id="registrationStep"
+                type="button"
+                onclick="showRegistration()"
+            >
+                <div class="step-number">1</div>
+                Farmer Registration
+            </button>
+
+            <button
+                class="step step-button"
+                id="slotStep"
+                type="button"
+                onclick="showSlots()"
+            >
+                <div class="step-number">2</div>
+                Slot Booking
+            </button>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                Queue Status
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                Confirmation
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             FARMER REGISTRATION
+        ========================== -->
+        <section class="card" id="registrationSection">
+
+            <div class="card-header">
+
+                <div class="card-icon">
+                    👨‍🌾
+                </div>
+
+                <div>
+                    <h2>Farmer Registration</h2>
+
+                    <p>
+                        Enter your details to create your procurement profile.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <form class="form" id="registrationForm">
+
+                <!-- PERSONAL INFORMATION -->
+                <div class="section">
+
+                    <div class="section-title">
+                        Personal Information
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label for="name">
+                                Full Name <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="name"
+                                placeholder="Enter your full name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="mobile">
+                                Mobile Number <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="mobile"
+                                placeholder="10-digit mobile number"
+                                maxlength="10"
+                                pattern="[0-9]{10}"
+                                required
+                            >
+
+                            <div class="help-text">
+                                Used for procurement updates.
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="farmerId">
+                                Farmer ID
+                            </label>
+
+                            <input
+                                type="text"
+                                id="farmerId"
+                                placeholder="Enter existing Farmer ID"
+                            >
+
+                            <div class="help-text">
+                                Leave blank for first-time registration.
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="language">
+                                Preferred Language
+                            </label>
+
+                            <select id="language">
+
+                                <option value="">
+                                    Select language
+                                </option>
+
+                                <option>Hindi</option>
+                                <option>English</option>
+                                <option>Gujarati</option>
+                                <option>Marathi</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOCATION -->
+                <div class="section">
+
+                    <div class="section-title">
+                        Location Details
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label for="state">
+                                State <span class="required">*</span>
+                            </label>
+
+                            <select id="state" required>
+
+                                <option value="">
+                                    Select state
+                                </option>
+
+                                <option>Gujarat</option>
+                                <option>Uttar Pradesh</option>
+                                <option>Madhya Pradesh</option>
+                                <option>Rajasthan</option>
+                                <option>Maharashtra</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="district">
+                                District <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="district"
+                                placeholder="Enter district"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group full">
+
+                            <label for="village">
+                                Village / Town <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="village"
+                                placeholder="Enter village or town"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FARM -->
+                <div class="section">
+
+                    <div class="section-title">
+                        Farm Details
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label for="crop">
+                                Primary Crop <span class="required">*</span>
+                            </label>
+
+                            <select id="crop" required>
+
+                                <option value="">
+                                    Select crop
+                                </option>
+
+                                <option>Wheat</option>
+                                <option>Rice</option>
+                                <option>Maize</option>
+                                <option>Mustard</option>
+                                <option>Cotton</option>
+                                <option>Sugarcane</option>
+                                <option>Other</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="land">
+                                Land Area (acres) <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="number"
+                                id="land"
+                                placeholder="Example: 2.5"
+                                min="0"
+                                step="0.1"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CONSENT -->
+                    <div class="consent">
+
+                        <label>
+
+                            <input type="checkbox" required>
+
+                            <span>
+                                I confirm that the information provided above
+                                is correct and may be used for procurement
+                                registration and service updates.
+                            </span>
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- BUTTONS -->
+                    <div class="actions">
+
+                        <button
+                            type="reset"
+                            class="clear-btn"
+                        >
+                            Clear Form
+                        </button>
+
+                        <button
+                            type="submit"
+                            class="register-btn"
+                        >
+                            ✓ Register Farmer
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+
+            <!-- REGISTRATION SUCCESS -->
+            <div
+                class="success-message"
+                id="registrationSuccess"
+            >
+                <strong>Registration submitted successfully!</strong>
+
+                You can now proceed to Slot Booking.
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             SLOT BOOKING
+        ========================== -->
+        <section
+            class="card booking-section"
+            id="slotSection"
+        >
+
+            <div class="card-header">
+
+                <div class="card-icon">
+                    📅
+                </div>
+
+                <div>
+                    <h2>Procurement Slot Booking</h2>
+
+                    <p>
+                        Choose a centre, date and available time slot.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="form">
+
+                <div class="booking-intro">
+
+                    <h2>Book Your Visit</h2>
+
+                    <p>
+                        Select a convenient time to reduce waiting at the
+                        procurement centre.
+                    </p>
+
+                </div>
+
+
+                <!-- CENTRE + DATE -->
+                <div class="booking-grid">
+
+                    <div class="form-group">
+
+                        <label for="centre">
+                            Procurement Centre
+                        </label>
+
+                        <select id="centre">
+
+                            <option>
+                                Vadodara Main Procurement Centre
+                            </option>
+
+                            <option>
+                                Padra Procurement Centre
+                            </option>
+
+                            <option>
+                                Savli Procurement Centre
+                            </option>
+
+                            <option>
+                                Karjan Procurement Centre
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="bookingDate">
+                            Preferred Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="bookingDate"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- SLOTS -->
+                <div class="slot-heading">
+                    Available Time Slots
+                </div>
+
+
+                <div class="slots">
+
+                    <button
+                        type="button"
+                        class="slot"
+                        onclick="selectSlot(this, '09:00 AM - 10:00 AM')"
+                    >
+                        <strong>09:00 AM</strong>
+                        <span>10 slots available</span>
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="slot"
+                        onclick="selectSlot(this, '10:00 AM - 11:00 AM')"
+                    >
+                        <strong>10:00 AM</strong>
+                        <span>7 slots available</span>
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="slot"
+                        onclick="selectSlot(this, '11:00 AM - 12:00 PM')"
+                    >
+                        <strong>11:00 AM</strong>
+                        <span>12 slots available</span>
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="slot"
+                        onclick="selectSlot(this, '12:00 PM - 01:00 PM')"
+                    >
+                        <strong>12:00 PM</strong>
+                        <span>5 slots available</span>
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="slot full"
+                        disabled
+                    >
+                        <strong>02:00 PM</strong>
+                        <span>Fully booked</span>
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="slot"
+                        onclick="selectSlot(this, '03:00 PM - 04:00 PM')"
+                    >
+                        <strong>03:00 PM</strong>
+                        <span>9 slots available</span>
+                    </button>
+
+                </div>
+
+
+                <!-- BOOKING ACTION -->
+                <div class="booking-actions">
+
+                    <div class="selected-slot">
+
+                        Selected slot:
+
+                        <strong id="selectedSlot">
+                            None
+                        </strong>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="confirm-slot-btn"
+                        onclick="confirmSlot()"
+                    >
+                        ✓ Confirm Slot
+                    </button>
+
+                </div>
+
+
+                <!-- BOOKING SUCCESS -->
+                <div
+                    class="booking-success"
+                    id="bookingSuccess"
+                >
+                    <strong>Slot booked successfully!</strong>
+                    <br>
+
+                    Your appointment has been recorded for this demo.
+                    A token/queue number can be generated when the backend
+                    is connected.
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <div class="footer">
+
+            KISAN SETU • Smart Automation for Faster and Transparent Procurement
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         JAVASCRIPT
+         ========================== -->
+
+    <script>
+
+        let selectedTimeSlot = "";
+
+        /*
+         * REGISTRATION FORM
+         */
+        document
+            .getElementById("registrationForm")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+                document
+                    .getElementById("registrationSuccess")
+                    .style.display = "block";
+
+                // Open slot booking automatically
+                setTimeout(function() {
+                    showSlots();
+                }, 700);
+
+            });
+
+
+        /*
+         * RESET FORM
+         */
+        document
+            .getElementById("registrationForm")
+            .addEventListener("reset", function() {
+
+                document
+                    .getElementById("registrationSuccess")
+                    .style.display = "none";
+
+            });
+
+
+        /*
+         * SHOW REGISTRATION
+         */
+        function showRegistration() {
+
+            document
+                .getElementById("registrationSection")
+                .style.display = "block";
+
+            document
+                .getElementById("slotSection")
+                .classList.remove("show");
+
+            document
+                .getElementById("registrationStep")
+                .classList.add("active");
+
+            document
+                .getElementById("slotStep")
+                .classList.remove("active");
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+
+
+        /*
+         * SHOW SLOT BOOKING
+         */
+        function showSlots() {
+
+            document
+                .getElementById("registrationSection")
+                .style.display = "none";
+
+            document
+                .getElementById("slotSection")
+                .classList.add("show");
+
+            document
+                .getElementById("registrationStep")
+                .classList.remove("active");
+
+            document
+                .getElementById("slotStep")
+                .classList.add("active");
+
+            document
+                .getElementById("slotSection")
+                .scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+        }
+
+
+        /*
+         * SELECT TIME SLOT
+         */
+        function selectSlot(button, time) {
+
+            const slots = document.querySelectorAll(".slot");
+
+            slots.forEach(function(slot) {
+
+                slot.classList.remove("selected");
+
+            });
+
+            button.classList.add("selected");
+
+            selectedTimeSlot = time;
+
+            document
+                .getElementById("selectedSlot")
+                .textContent = time;
+
+            document
+                .getElementById("bookingSuccess")
+                .style.display = "none";
+        }
+
+
+        /*
+         * CONFIRM SLOT
+         */
+        function confirmSlot() {
+
+            const date =
+                document.getElementById("bookingDate").value;
+
+            if (date === "") {
+
+                alert("Please select a preferred date.");
+
+                return;
+            }
+
+            if (selectedTimeSlot === "") {
+
+                alert("Please select an available time slot.");
+
+                return;
+            }
+
+            document
+                .getElementById("bookingSuccess")
+                .style.display = "block";
+
+        }
+
+    </script>
+
+</body>
+</html>
